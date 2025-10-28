@@ -45,7 +45,11 @@ function App() {
       setNumberOfPages,
     };
   };
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newBook = bookCreator(titleB, autorB, nPages, check); //napravi const
+    manager.pushBook(newBook);
+  };
   return (
     <>
       <div className="text-box">
