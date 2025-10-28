@@ -3,6 +3,22 @@ import Book from "./Book";
 import "./App.css";
 
 function App() {
+  const [books, setBooks] = useState([]);
+  const [isVisible, setIsVisible] = useState(true);
+
+  const bookManager = () => {
+    const getBooks = () => books;
+    const pushBook = (book) => books.push(book);
+    const deleteBook = (id) => {
+      setBooks((prev) => {
+        return prev.filter((book) => book.id !== id);
+      });
+    };
+    const findBook = (id) => books.find((book) => book.id === id);
+    return { pushBook, getBooks, deleteBook, findBook };
+  };
+  const manager = bookManager();
+
   return (
     <>
       <div className="text-box">
@@ -26,7 +42,7 @@ function App() {
       </ul>
       {!isVisible && (
         <>
-          <form className="form">
+          <form className="form" onSubmit={handleSubmit}>
             <div className="form-box">
               <label className="label" htmlFor="title">
                 Title of the book:
