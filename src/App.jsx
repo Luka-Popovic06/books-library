@@ -18,6 +18,33 @@ function App() {
     return { pushBook, getBooks, deleteBook, findBook };
   };
   const manager = bookManager();
+  const bookCreator = (bookTitle, bookAuthor, bookNumber, bookCheck) => {
+    const setBookTitle = (newTitle) => (title = newTitle);
+    const setBookAuthor = (newAuthor) => (author = newAuthor);
+    const setNumberOfPages = (newNumber) => (numberOfPages = newNumber);
+    const setIsCheck = (value) => (checked = value);
+    let title = bookTitle;
+    let author = bookAuthor;
+    let numberOfPages = bookNumber;
+    let checked = bookCheck;
+    let bookId = crypto.randomUUID();
+    const getBookId = () => bookId;
+    const getBookTitle = () => title;
+    const getBookAuthor = () => author;
+    const getNumberOfPages = () => numberOfPages;
+    const getIsCheck = () => checked;
+    return {
+      getBookId,
+      getBookTitle,
+      getBookAuthor,
+      getNumberOfPages,
+      getIsCheck,
+      setIsCheck,
+      setBookTitle,
+      setBookAuthor,
+      setNumberOfPages,
+    };
+  };
 
   return (
     <>
