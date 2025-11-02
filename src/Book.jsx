@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from "react";
 const Book = (props) => {
-  const {} = props;
-  return (
-    <>
-      <li className="list-item">
-        <p className="card-book-name"></p>
-        <p className="card-book-autor"></p>
-        <p className="card-page-number"></p>
-        <div className="card-btn">
-          <button type="button" className="btn-read-un"></button>
-          <button type="button" className="btn-delete">
-            Delete Book
-          </button>
-          <button type="button" className="btn-edit">
-            Edit
-          </button>
-        </div>
-      </li>
-    </>
-  );
+  const { id, title, author, pages, checked, onDelete, onUpdate } = props;
+  const [editMode, setEditMode] = useState(false);
+  const [editTitle, setEditTitle] = useState(title);
+  const [editAuthor, setEditAuthor] = useState(author);
+  const [editPages, setEditPages] = useState(pages);
+  const toggleReadStatus = () => {
+    onUpdate(id, { checked: !checked });
+  };
+  const finishEditing = () => {
+    onUpdate(id, {
+      title: editTitle,
+      author: editAuthor,
+      pages: editPages,
+    });
+    setEditMode(false);
+  };
 };
 export default Book;
