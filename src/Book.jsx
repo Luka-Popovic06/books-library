@@ -39,7 +39,7 @@ const Book = (props) => {
             type="button"
             className="btn-edit"
             onClick={() => {
-              isEditing(true);
+              isEditing();
               selectBook(id);
             }}
           >

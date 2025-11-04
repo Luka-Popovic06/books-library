@@ -11,7 +11,7 @@ const EditMode = (props) => {
       author: editAuthor,
       pages: editPages,
     });
-    isEditing(false);
+    isEditing();
   };
   return (
     <>

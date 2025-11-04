@@ -6,13 +6,13 @@ import "./App.css";
 function App() {
   const [books, setBooks] = useState([]);
   const [isVisible, setIsVisible] = useState(true);
-  const [editMode, setEditMode] = useState(false);
   const [selectedBook, setSelectedBook] = useState("");
   const [book, setBook] = useState({
     bookName: "",
     authorName: "",
     numberOfPages: "",
     checker: false,
+    isEdit: false,
   });
   const handleBookChange = (e) => {
     const key = e.target.name; // ime polja iz inputa (npr. "title")
@@ -37,13 +37,14 @@ function App() {
     );
   };
 
-  const bookCreator = (title, author, pages, checked) => {
+  const bookCreator = (title, author, pages, checked, edit) => {
     return {
       id: crypto.randomUUID(),
       title,
       author,
       pages,
       checked,
+      edit,
     };
   };
   const handleSubmit = (e) => {
@@ -52,7 +53,8 @@ function App() {
       book.bookName,
       book.authorName,
       book.numberOfPages,
-      book.checker
+      book.checker,
+      book.isEdit
     );
     setBooks((prev) => [newBook, ...prev]);
     setBook({
@@ -79,32 +81,40 @@ function App() {
           New Book
         </button>
       </div>
+      {
+        //napraviti jos jedno dugme bilo gde na koje ce da pise post
+        //kad se klikne na to dugme neka se ispise u konzolu posting to libary...
+        //funkcija treba da prodje kroz array knjiga i da napravi noviarray knjiga bez izEditing u svakoj knjizi
+        //i konsologuje taj array
+        //ako nema knjiga u areju neka konsologuje no books to post
+      }
       <ul className="ul-list">
         {books.map((book) => {
-          return !editMode ? (
+          return !book.edit ? (
             <Book
               key={book.id}
               {...book}
               onDelete={deleteBook}
               onUpdate={updateBook}
-              isEditing={(value) => setEditMode(value)}
+              isEditing={() =>
+                setBooks((prev) =>
+                  prev.map((b) => (b.id === book.id ? { ...b, edit: true } : b))
+                )
+              }
               selectBook={findBook}
             />
-          ) : book.id === selectedBook.id ? (
+          ) : (
             <EditMode
               key={book.id}
               {...book}
               onUpdate={updateBook}
-              isEditing={(value) => setEditMode(value)}
-            />
-          ) : (
-            <Book
-              key={book.id}
-              {...book}
-              onDelete={deleteBook}
-              onUpdate={updateBook}
-              isEditing={(value) => setEditMode(value)}
-              selectBook={findBook}
+              isEditing={() =>
+                setBooks((prev) =>
+                  prev.map((b) =>
+                    b.id === book.id ? { ...b, edit: false } : b
+                  )
+                )
+              }
             />
           );
         })}
