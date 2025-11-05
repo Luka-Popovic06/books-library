@@ -73,13 +73,18 @@ function App() {
           Use the button below to add to your library and watch your collection
           grow
         </p>
-        <button
-          type="button"
-          className="btn-new-book"
-          onClick={() => setIsVisible(false)}
-        >
-          New Book
-        </button>
+        <div className="btn-box">
+          <button type="button" className="post-btn">
+            Post
+          </button>
+          <button
+            type="button"
+            className="btn-new-book"
+            onClick={() => setIsVisible(false)}
+          >
+            New Book
+          </button>
+        </div>
       </div>
       {
         //napraviti jos jedno dugme bilo gde na koje ce da pise post
