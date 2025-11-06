@@ -7,7 +7,6 @@ function App() {
   const [books, setBooks] = useState([]);
   const [newBooksArray, setNewBooksArray] = useState([]);
   const [isVisible, setIsVisible] = useState(true);
-  const [selectedBook, setSelectedBook] = useState("");
   const [book, setBook] = useState({
     bookName: "",
     authorName: "",
@@ -27,10 +26,6 @@ function App() {
     setBooks((prev) => {
       return prev.filter((book) => book.id !== id);
     });
-  };
-  const findBook = (id) => {
-    const book = books.find((book) => book.id === id);
-    setSelectedBook(book);
   };
   const updateBook = (id, newData) => {
     setBooks((prev) =>
@@ -115,7 +110,6 @@ function App() {
                   prev.map((b) => (b.id === book.id ? { ...b, edit: true } : b))
                 )
               }
-              selectBook={findBook}
             />
           ) : (
             <EditMode

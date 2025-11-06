@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from "react";
 const Book = (props) => {
-  const {
-    id,
-    title,
-    author,
-    pages,
-    checked,
-    onDelete,
-    onUpdate,
-    isEditing,
-    selectBook,
-  } = props;
+  const { id, title, author, pages, checked, onDelete, onUpdate, isEditing } =
+    props;
   const toggleReadStatus = () => {
     onUpdate(id, { checked: !checked });
   };
@@ -40,7 +31,6 @@ const Book = (props) => {
             className="btn-edit"
             onClick={() => {
               isEditing();
-              selectBook(id);
             }}
           >
             Edit
