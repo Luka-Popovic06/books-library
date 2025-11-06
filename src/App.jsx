@@ -5,6 +5,7 @@ import "./App.css";
 
 function App() {
   const [books, setBooks] = useState([]);
+  const [newBooksArray, setNewBooksArray] = useState([]);
   const [isVisible, setIsVisible] = useState(true);
   const [selectedBook, setSelectedBook] = useState("");
   const [book, setBook] = useState({
@@ -47,6 +48,20 @@ function App() {
       edit,
     };
   };
+  const posting = () => {
+    if (books.length === 0) {
+      console.log("no books to post");
+      return;
+    }
+
+    console.log("posting to library...");
+
+    const cleanedBooks = books.map(({ edit, ...rest }) => rest);
+
+    console.log(cleanedBooks);
+
+    setNewBooksArray(cleanedBooks);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const newBook = bookCreator(
@@ -62,6 +77,7 @@ function App() {
       authorName: "",
       numberOfPages: "",
       checker: false,
+      isEdit: false,
     });
     setIsVisible(true);
   };
@@ -74,7 +90,7 @@ function App() {
           grow
         </p>
         <div className="btn-box">
-          <button type="button" className="post-btn">
+          <button type="button" className="post-btn" onClick={posting}>
             Post
           </button>
           <button
@@ -86,13 +102,6 @@ function App() {
           </button>
         </div>
       </div>
-      {
-        //napraviti jos jedno dugme bilo gde na koje ce da pise post
-        //kad se klikne na to dugme neka se ispise u konzolu posting to libary...
-        //funkcija treba da prodje kroz array knjiga i da napravi noviarray knjiga bez izEditing u svakoj knjizi
-        //i konsologuje taj array
-        //ako nema knjiga u areju neka konsologuje no books to post
-      }
       <ul className="ul-list">
         {books.map((book) => {
           return !book.edit ? (
